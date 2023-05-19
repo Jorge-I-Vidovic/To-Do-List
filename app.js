@@ -22,8 +22,6 @@ function agregarTarea(tarea, id, realizado, eliminado) {
 
     const REALIZADO = realizado ? check : onCheck;
     const LINE = realizado ? LineThrough : '';
-
-
     const elemento = `
         <li id="elemento">
             <i class="far ${REALIZADO}" data="realizado" id="${id}"></i>
@@ -33,7 +31,12 @@ function agregarTarea(tarea, id, realizado, eliminado) {
     `;
 
     // Este indica donde los va insertar segun los parametros
-    lista.insertAdjacentHTML("beforeend", elemento);
+    if (elemento == null){
+        lista.innerHTML(`<p> No hay tareas pendientes. </p>`)
+    } else {
+        lista.insertAdjacentHTML("beforeend", elemento);
+    }
+    
 }
 
 // Funcion tarea realizada
@@ -64,9 +67,7 @@ btnAgregar.addEventListener('click', () => {
         });
     };
 
-
     localStorage.setItem('TODO', JSON.stringify(LIST));
-
     input.value = "";
     id++;
 });
@@ -85,9 +86,7 @@ document.addEventListener('keyup', function (event) {
             });
         };
 
-
         localStorage.setItem('TODO', JSON.stringify(LIST));
-
         input.value = "";
         id++;
     }
@@ -97,7 +96,6 @@ document.addEventListener('keyup', function (event) {
 lista.addEventListener('click', function (event) {
     const element = event.target;
     const elementData = element.attributes.data.value;
-    //console.log(element.attributes.data.value)
 
     if (elementData === 'realizado') {
         tareaRealizada(element);
@@ -108,11 +106,6 @@ lista.addEventListener('click', function (event) {
 
 });
 
-
-//localStorage.setItem('Todo.JOSN.stringify(LIST));
-
-
-//localStorage.getItem('Todo);
 let data = localStorage.getItem('TODO');
 if (data) {
     LIST = JSON.parse(data);
