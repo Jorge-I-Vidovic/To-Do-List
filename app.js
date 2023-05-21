@@ -52,7 +52,7 @@ function tareaRealizada(element) {
 //Tarea eliminada
 function TareaEliminado(element) {
     element.parentNode.parentNode.removeChild(element.parentNode);
-    storage.removeItem(element);
+    LIST[element.id].eliminado = true;
 }
 
 //Evento con el botn de agregar
